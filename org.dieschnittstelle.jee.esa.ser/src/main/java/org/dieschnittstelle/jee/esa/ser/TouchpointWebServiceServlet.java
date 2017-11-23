@@ -1,5 +1,6 @@
 package org.dieschnittstelle.jee.esa.ser;
 
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import javax.servlet.http.HttpServlet;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import static org.dieschnittstelle.jee.esa.utils.Utils.*;
 
 import org.apache.log4j.Logger;
+import org.dieschnittstelle.jee.esa.entities.crm.AbstractTouchpoint;
 
 public class TouchpointWebServiceServlet extends HttpServlet {
 
@@ -49,37 +51,60 @@ public class TouchpointWebServiceServlet extends HttpServlet {
 
 	}
 	
-	/*
+
 	@Override	
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) {
 
 		// assume POST will only be used for touchpoint creation, i.e. there is
 		// no need to check the uri that has been used
+		TouchpointCRUDExecutor exec = (TouchpointCRUDExecutor) getServletContext().getAttribute("touchpointCRUD");
 
 		// obtain the executor for reading out the touchpoints from the servlet context using the touchpointCRUD attribute
+		// obtain the executor for reading out the touchpoints
 
 		try {
 			// create an ObjectInputStream from the request's input stream
-		
+			ObjectInputStream ois = new ObjectInputStream(request.getInputStream()); //serialisierte Daten
 			// read an AbstractTouchpoint object from the stream
-		
+			AbstractTouchpoint tp = (AbstractTouchpoint) ois.readObject();
+
+			show(tp);
 			// call the create method on the executor and take its return value
-		
+			tp = exec.createTouchpoint(tp);
+
 			// set the response status as successful, using the appropriate
 			// constant from HttpServletResponse
+			response.setStatus(HttpServletResponse.SC_OK);
 		
 			// then write the object to the response's output stream, using a
 			// wrapping ObjectOutputStream
-		
+			ObjectOutputStream oos = new ObjectOutputStream(response.getOutputStream());
 			// ... and write the object to the stream
-		
+			oos.writeObject(tp);
+
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 
 	}
-	*/
+
+
+	@Override
+	protected void doDelete(HttpServletRequest request, HttpServletResponse response) {
+		logger.info("doDelete()");
+		//set Status: kein Inhalt
+		response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+
+		String url = request.getPathInfo();
+		int id = Integer.parseInt(url.substring(url.indexOf("/") + 1));
+
+		TouchpointCRUDExecutor exec = (TouchpointCRUDExecutor) getServletContext().getAttribute("touchpointCRUD");
+
+		boolean deletion = exec.deleteTouchpoint(id);
+		logger.warn("deletion was : " + deletion);
+	}
+
 
 
 	
