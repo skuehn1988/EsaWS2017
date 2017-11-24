@@ -25,7 +25,7 @@ public class ProductCRUDServiceImpl implements IProductCRUDService {
 
 	@Override
 	public IndividualisedProductItem updateProduct(long id,
-			IndividualisedProductItem update) {
+												   IndividualisedProductItem update) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -41,5 +41,5 @@ public class ProductCRUDServiceImpl implements IProductCRUDService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 }
