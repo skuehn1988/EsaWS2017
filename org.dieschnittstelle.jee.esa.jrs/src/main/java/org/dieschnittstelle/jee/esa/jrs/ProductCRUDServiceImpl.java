@@ -28,8 +28,10 @@ public class ProductCRUDServiceImpl implements IProductCRUDService {
 	private GenericCRUDExecutor<AbstractProduct> productCRUD;
 
 	public ProductCRUDServiceImpl(@Context ServletContext servletContext, @Context HttpServletRequest request) {
+
 		logger.info("<constructor>: " + servletContext + "/" + request);
 		show("<constructor>");
+
 		this.productCRUD = (GenericCRUDExecutor<AbstractProduct>)servletContext.getAttribute("productCRUD");
 
 		logger.debug("read out the productCRUD from the servlet context: " + this.productCRUD);

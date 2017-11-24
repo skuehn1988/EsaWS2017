@@ -2,6 +2,7 @@ package org.dieschnittstelle.jee.esa.basics;
 
 
 import org.dieschnittstelle.jee.esa.basics.annotations.AnnotatedStockItemBuilder;
+import org.dieschnittstelle.jee.esa.basics.annotations.DisplayAs;
 import org.dieschnittstelle.jee.esa.basics.annotations.StockItemProxyImpl;
 
 import java.lang.reflect.Field;
@@ -35,9 +36,14 @@ public class ShowAnnotations {
 	private static void showAttributes(Object consumable) {
 		String message = "{ "+consumable.getClass().getSimpleName();
 		for(Field field:consumable.getClass().getDeclaredFields()){
-			message+= " "+field.getName()+":";
+			if (field.getAnnotation(DisplayAs.class)!=null){
+				message+= " "+field.getAnnotation(DisplayAs.class).value()+":";
+			} else {
+				message += " " + field.getName() + ":";
+			}
 			try {
-				message += consumable.getClass().getMethod(
+
+					message += consumable.getClass().getMethod(
 						"get"+
 								Character.toUpperCase(field.getName().charAt(0))+
 								field.getName().substring(1)
