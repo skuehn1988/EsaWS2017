@@ -41,7 +41,7 @@ public class ProductCRUDClient {
 		return created;
 	}
 
-	public List<?> readAllProducts() {
+	public List<AbstractProduct> readAllProducts() {
 		return serviceProxy.readAllProducts();
 	}
 
