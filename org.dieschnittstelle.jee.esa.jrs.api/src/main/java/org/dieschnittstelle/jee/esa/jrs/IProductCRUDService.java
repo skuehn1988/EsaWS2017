@@ -29,18 +29,17 @@ public interface IProductCRUDService {
 	List<AbstractProduct> readAllProducts();
 
 	@GET
-	@Path("/{productId}") // path spezifiziert die URI genauer, ID wird übermittelt an methode
-	AbstractProduct readProduct(@PathParam("productId") long id); //pathparam nimmt UIR id auf
+	@Path("/{productId}")
+	AbstractProduct readProduct(@PathParam("productId") long id);
 
 	@POST
-		// für create methode, nicht über uri, weil komplexer datentyp, also im Body mit JASON
 	AbstractProduct createProduct(AbstractProduct product);
 
 	@PUT
 	@Path("/{productId}")
 	AbstractProduct updateProduct(@PathParam("productId") long id, AbstractProduct product);
 
-	@DELETE //auf Serverseite wird ein longwert geparsed aus der ID in der URI
+	@DELETE
 	@Path("/{productId}")
 	boolean deleteProduct(@PathParam("productId") long id);
 

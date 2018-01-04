@@ -12,18 +12,22 @@ import java.util.List;
 public interface ITouchpointCRUDService {
 	
 	@GET
-	List<StationaryTouchpoint> readAllTouchpoints();
+	public List<StationaryTouchpoint> readAllTouchpoints();
 
 	@GET
 	@Path("/{touchpointId}")
-	StationaryTouchpoint readTouchpoint(@PathParam("touchpointId") long id);
+	public StationaryTouchpoint readTouchpoint(@PathParam("touchpointId") long id);
 
-	@POST
-	StationaryTouchpoint createTouchpoint(StationaryTouchpoint touchpoint);
+	@POST // Create Methode
+	public StationaryTouchpoint createTouchpoint(StationaryTouchpoint touchpoint);
 	
-	@DELETE
+	@DELETE // Delete Methode
 	@Path("/{touchpointId}")
-	boolean deleteTouchpoint(@PathParam("touchpointId") long id);
+	public boolean deleteTouchpoint(@PathParam("touchpointId") long id);
+
+	@PUT
+	@Path("/{touchpointId}")
+	public StationaryTouchpoint updateTouchpoint(@PathParam("touchpointId") long id, StationaryTouchpoint touchpoint);
 		
 	/*
 	 * UE JRS1: add a new annotated method for using the updateTouchpoint functionality of TouchpointCRUDExecutor and implement it
