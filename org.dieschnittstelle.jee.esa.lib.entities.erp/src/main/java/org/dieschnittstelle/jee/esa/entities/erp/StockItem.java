@@ -1,22 +1,12 @@
 package org.dieschnittstelle.jee.esa.entities.erp;
 
-import javax.persistence.Id;
-import javax.persistence.IdClass;
-import javax.persistence.ManyToOne;
-import javax.persistence.PostLoad;
-import javax.persistence.PostPersist;
-import javax.persistence.PostRemove;
-import javax.persistence.PostUpdate;
-import javax.persistence.PrePersist;
-import javax.persistence.PreRemove;
-import javax.persistence.PreUpdate;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import org.apache.log4j.Logger;
 
-//@Entity
 @Table(name = "stock")
 @IdClass(ProductAtPosPK.class)
+@Entity
 public class StockItem {
 
 	protected static Logger logger = Logger.getLogger(StockItem.class);
@@ -30,7 +20,7 @@ public class StockItem {
 	private IndividualisedProductItem product;
 
 	private int price;
-	
+
 	private int units;
 
 	public StockItem() {
@@ -38,7 +28,7 @@ public class StockItem {
 	}
 
 	public StockItem(IndividualisedProductItem product,
-			PointOfSale pos, int units) {
+					 PointOfSale pos, int units) {
 		this.product = product;
 		this.pos = pos;
 		this.units = units;

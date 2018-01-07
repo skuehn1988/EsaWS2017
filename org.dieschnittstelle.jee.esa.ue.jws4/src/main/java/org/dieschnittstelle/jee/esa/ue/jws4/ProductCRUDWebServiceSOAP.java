@@ -13,11 +13,6 @@ import org.dieschnittstelle.jee.esa.entities.GenericCRUDExecutor;
 import org.dieschnittstelle.jee.esa.entities.erp.AbstractProduct;
 import org.dieschnittstelle.jee.esa.entities.erp.IndividualisedProductItem;
 
-/*
- * UE JWS4: machen Sie die Funktionalitaet dieser Klasse als Web Service verfuegbar und verwenden Sie fuer
- * die Umsetzung der beiden Methoden die Instanz von GenericCRUDExecutor<AbstractProduct>,
- * die Sie aus dem ServletContext auslesen koennen
- */
 @WebService(targetNamespace = "http://dieschnittstelle.org/jee/esa/jws", serviceName = "ProductCRUDWebService")
 @SOAPBinding(parameterStyle = SOAPBinding.ParameterStyle.WRAPPED)
 public class ProductCRUDWebServiceSOAP {
@@ -25,37 +20,27 @@ public class ProductCRUDWebServiceSOAP {
 	@Resource
 	private WebServiceContext wscontext;
 
+	private GenericCRUDExecutor<AbstractProduct> productCRUD(){
+		ServletContext context = (ServletContext) wscontext.getMessageContext().get(MessageContext.SERVLET_CONTEXT);
+		return (GenericCRUDExecutor<AbstractProduct>) context.getAttribute("productCRUD");
+	}
+
 	public List<AbstractProduct> readAllProducts() {
-		// we obtain the servlet context from the wscontext
-		ServletContext ctx = (ServletContext) wscontext.getMessageContext().get(MessageContext.SERVLET_CONTEXT);
-		GenericCRUDExecutor<AbstractProduct> productCRUD = (GenericCRUDExecutor<AbstractProduct>) ctx.getAttribute("productCRUD");
-		return productCRUD.readAllObjects();
+		return this.productCRUD().readAllObjects();
 	}
 
 	public AbstractProduct createProduct(AbstractProduct product) {
-		// we obtain the servlet context from the wscontext
-		ServletContext ctx = (ServletContext) wscontext.getMessageContext().get(MessageContext.SERVLET_CONTEXT);
-		GenericCRUDExecutor<AbstractProduct> productCRUD = (GenericCRUDExecutor<AbstractProduct>) ctx.getAttribute("productCRUD");
-		return productCRUD.createObject(product);
+		return this.productCRUD().createObject(product);
 	}
 
 	public AbstractProduct updateProduct(AbstractProduct update) {
-		// we obtain the servlet context from the wscontext
-		ServletContext ctx = (ServletContext) wscontext.getMessageContext().get(MessageContext.SERVLET_CONTEXT);
-		GenericCRUDExecutor<AbstractProduct> productCRUD = (GenericCRUDExecutor<AbstractProduct>) ctx.getAttribute("productCRUD");
-		return productCRUD.updateObject(update);
+		return this.productCRUD().updateObject(update);
 	}
 
 	public AbstractProduct readProduct(long id) {
-
-		ServletContext ctx = (ServletContext) wscontext.getMessageContext().get(MessageContext.SERVLET_CONTEXT);
-		GenericCRUDExecutor<AbstractProduct> productCRUD = (GenericCRUDExecutor<AbstractProduct>) ctx.getAttribute("productCRUD");
-		return productCRUD.readObject(id);
+		return this.productCRUD().readObject(id);
 	}
 	public boolean deleteProduct(long id) {
-
-		ServletContext ctx = (ServletContext) wscontext.getMessageContext().get(MessageContext.SERVLET_CONTEXT);
-		GenericCRUDExecutor<AbstractProduct> productCRUD = (GenericCRUDExecutor<AbstractProduct>) ctx.getAttribute("productCRUD");
-		return productCRUD.deleteObject(id);
+		return this.productCRUD().deleteObject(id);
 	}
 }

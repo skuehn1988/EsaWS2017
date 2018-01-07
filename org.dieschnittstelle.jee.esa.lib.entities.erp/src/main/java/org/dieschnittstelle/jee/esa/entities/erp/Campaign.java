@@ -10,16 +10,14 @@ import org.apache.log4j.Logger;
 
 import javax.persistence.*;
 
-
+@Entity
 public class Campaign extends AbstractProduct implements Serializable {
 
 	protected static Logger logger = Logger.getLogger(Campaign.class);
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 4407600000386810001L;
 
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<ProductBundle> bundles;
 
 	public Campaign() {
@@ -47,13 +45,6 @@ public class Campaign extends AbstractProduct implements Serializable {
 		return "[Campaign " + this.getId() + ", " + this.getName() + ", "
 				+ this.bundles + "]";
 	}
-
-//	public boolean equals(Object other) {
-//		return EqualsBuilder.reflectionEquals(this, other,
-//				new String[] { "bundles" })
-//				&& LangUtils
-//						.setequals(this.bundles, ((Campaign) other).bundles);
-//	}
 
 	public int hashCode() {
 		return HashCodeBuilder.reflectionHashCode(this,

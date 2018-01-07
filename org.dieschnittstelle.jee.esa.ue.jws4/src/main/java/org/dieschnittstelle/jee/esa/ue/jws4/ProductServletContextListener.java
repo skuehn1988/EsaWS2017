@@ -43,24 +43,18 @@ public class ProductServletContextListener implements ServletContextListener {
 
 		logger.info("contextInitialised()");
 
-		// we create a new executor for a file to be stored in the context root
 		String rootPath = evt.getServletContext().getRealPath("/");
 		
 		GenericCRUDExecutor<AbstractProduct> exec = new GenericCRUDExecutor<AbstractProduct>(new File(
 				rootPath, "products.data"));
 
-		// we call load() on the executor to load any exsisting data (if there
-		// are any)
 		exec.load();
-		
-		// check whether we are empty - add a product in this case
+
 		if (exec.readAllObjects().size() == 0) {
 			IndividualisedProductItem prod1 = new IndividualisedProductItem("Schusterjunge",ProductType.ROLL, 720);
 			exec.createObject(prod1);
 		}
 
-		// then we put the executor into the context to make it available to the
-		// other components
 		evt.getServletContext().setAttribute("productCRUD", exec);
 	}
 

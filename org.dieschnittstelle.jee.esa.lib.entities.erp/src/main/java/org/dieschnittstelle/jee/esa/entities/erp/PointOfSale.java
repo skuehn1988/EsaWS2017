@@ -18,13 +18,10 @@ import org.apache.log4j.Logger;
 @Entity
 public class PointOfSale implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -3397160788902953608L;
-	
+
 	protected static Logger logger = Logger.getLogger(PointOfSale.class);
-	
+
 	@Id
 	@GeneratedValue
 	private long id;
@@ -40,21 +37,21 @@ public class PointOfSale implements Serializable {
 	public void setId(long id) {
 		this.id = id;
 	}
-	
+
 	/*
 	 * lifecycle logging
 	 */
-	
+
 	@PostLoad
 	public void onPostLoad() {
 		logger.info("@PostLoad: " + this);
 	}
-	
+
 	@PostPersist
 	public void onPostPersist() {
-		logger.info("@PostPersist: " + this);		
+		logger.info("@PostPersist: " + this);
 	}
-	
+
 	@PostRemove
 	public void onPostRemove() {
 		logger.info("@PostRemove: " + this);
@@ -64,7 +61,7 @@ public class PointOfSale implements Serializable {
 	public void onPostUpdate() {
 		logger.info("@PostUpdate: " + this);
 	}
-	
+
 	@PrePersist
 	public void onPrePersist() {
 		logger.info("@PrePersist: " + this);
@@ -77,8 +74,9 @@ public class PointOfSale implements Serializable {
 
 	@PreUpdate
 	public void onPreUpdate() {
-		logger.info("@PreUpdate: " + this);		
+		logger.info("@PreUpdate: " + this);
 	}
 
 
 }
+

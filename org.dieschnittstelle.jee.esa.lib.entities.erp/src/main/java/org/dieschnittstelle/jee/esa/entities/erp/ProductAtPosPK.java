@@ -5,9 +5,6 @@ import java.io.Serializable;
 
 public class ProductAtPosPK implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 9113210426279286629L;
 
 	private IndividualisedProductItem product;
@@ -18,7 +15,7 @@ public class ProductAtPosPK implements Serializable {
 	}
 
 	public ProductAtPosPK(IndividualisedProductItem product,
-			PointOfSale pos) {
+						  PointOfSale pos) {
 		this.product = product;
 		this.pos = pos;
 	}
@@ -54,7 +51,8 @@ public class ProductAtPosPK implements Serializable {
 		return this.product.getId() == ((ProductAtPosPK) obj).getProduct()
 				.getId()
 				&& this.pos.getId() == ((ProductAtPosPK) obj)
-						.getPos().getId();
+				.getPos().getId();
 	}
 
 }
+
